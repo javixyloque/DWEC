@@ -9,4 +9,5 @@ document.addEventListener ('DOMContentLoaded', ()=> {
     const evento = () => {
         saludo.setAttribute("style", "text-color: aquamarine");
     }
+    
 });
