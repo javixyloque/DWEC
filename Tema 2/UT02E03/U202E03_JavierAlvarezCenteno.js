@@ -37,6 +37,6 @@ const compruebaCuenta = numT => {
     }
 }
 
-// Ejemplo de uso
-let numT = 4532015112830366;  // Ejemplo de número de tarjeta
+
+let numT = 4532015112830366;
 compruebaCuenta(numT);
