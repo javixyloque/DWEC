@@ -9,8 +9,6 @@ const compruebaCuenta = numT => {
     console.log(arrNums)
 
 
-    // DE VERDAD QUE NO SE ME OCURRIA OTRA FORMA DE HACERLO,
-    // CON FOREACH NO ME DEJABA HACERLO
 
     let arrOrd = arrNums.map((element, index) => {
         if (index%2!==0) {
@@ -31,15 +29,17 @@ const compruebaCuenta = numT => {
     console.log(arrOrd);
 
     console.log(`La suma total de los numeros de la cuenta es ${sum}`);
+    return sum % 10 === 0;
 
-    let numT = 4532015112830366;
-    if (sum % 10 === 0) {
-        console.log(`El numero de cuenta ${numT} es valido`);
-    } else {
-        console.log(`El numero de cuenta ${numT} no es valido`);
-    }
+    
 }
+let numT = 4934311931109585;
+    if (compruebaCuenta(numT)) {
+        console.log(`El numero de cuenta es valido`);
+    } else {
+        console.log(`El numero de cuenta no es valido`);
+    }
 
 
 
-compruebaCuenta(numT);
+let bool =  compruebaCuenta(numT);
