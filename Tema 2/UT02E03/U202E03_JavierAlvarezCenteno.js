@@ -11,7 +11,7 @@ const compruebaCuenta = numT => {
 
 
     let arrOrd = arrNums.map((element, index) => {
-        if (index%2!==0) {
+        if (index%2===0) {
             temp = parseInt(element*2);
             if (temp>=10) {
                 temp -= 9;
@@ -33,7 +33,7 @@ const compruebaCuenta = numT => {
 
     
 }
-let numT = 4934311931109585;
+let numT = "4934311931109585";
     if (compruebaCuenta(numT)) {
         console.log(`El numero de cuenta es valido`);
     } else {
@@ -42,4 +42,3 @@ let numT = 4934311931109585;
 
 
 
-let bool =  compruebaCuenta(numT);
