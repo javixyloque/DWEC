@@ -46,12 +46,17 @@ for  (let i = 0; i < nums.length; i++) {
 }
 
 const repetidos = (nums) => {
-    let arrNums = nums.reduce(1,2)
-    let digito1 = nums.filter ((element) => {
-        return element == nums[0];
-    })
+    const contObj = {
+    }; 
 
-    
-    return arrNums
+    for (let num of nums) {
+        if (contObj[num]!=0) {
+            contObj[num]+=1;
+        } else {
+            contObj[num] = 1;
+        }
+    }
+    return contObj;
+
 }
 console.log(repetidos(nums));
