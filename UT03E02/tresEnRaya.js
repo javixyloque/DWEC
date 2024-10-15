@@ -19,6 +19,8 @@ let ganador = [
     [tablero[0][2], tablero[1][2], tablero[2][2]]
 ]
 
+let turno = 1;
+
 
 // alert ("Saludos, jugador, este es el TIC TAC TOE (version alpha para humanos)")
 
@@ -44,7 +46,7 @@ while (compruebaTabla(ganador)) {
 
 
 function hacerMov (mov)  {
-    let turno = 1;
+    
     let simbolo = turno == 1 ? 'x' : 'o';
 
         if (mov<=3&&tablero[0][mov-1]=='') {
