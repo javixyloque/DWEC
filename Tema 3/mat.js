@@ -37,26 +37,3 @@ const eliminarElemento = () => {
 }
 console.log(eliminarElemento());
 
-
-// OBTENER CUENTA DE LOS ELEMENTOS QUE HAY
-let nums = [2,3,2,2] 
-
-for  (let i = 0; i < nums.length; i++) {
-
-}
-
-const repetidos = (nums) => {
-    const contObj = {
-    }; 
-
-    for (let num of nums) {
-        if (contObj[num]!=0) {
-            contObj[num]+=1;
-        } else {
-            contObj[num] = 1;
-        }
-    }
-    return contObj;
-
-}
-console.log(repetidos(nums));
