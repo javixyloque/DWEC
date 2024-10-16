@@ -21,6 +21,8 @@ let ganador = [
 
 let turno = 1;
 let simbolo = '';
+let movimiento;
+let pos;
 
 // alert ("Saludos, jugador, este es el TIC TAC TOE (version alpha para humanos)")
 
@@ -29,11 +31,19 @@ let simbolo = '';
 
 //BUCLE PARA EJECUCION PROGRAMA
 
-while (compruebaTabla(ganador)) {
-    let movimiento = parseInt(5);
-    hacerMov(movimiento);
+while (true){
+    movimiento = prompt(`Escribe el siguiente movimiento, jugador ${turno}`);
+    pos = parseInt(movimiento);
+    hacerMov(pos);
+    if (compruebaTabla(ganador)) {
+        alert(`Felicidades ${turno}, has ganado!!`);
+        break;
+    }
     console.log(tablero);
-}
+    
+} 
+
+
 
 
 
@@ -61,13 +71,16 @@ function hacerMov (mov)  {
     return tablero;
 }
 
+
+
+
 function compruebaTabla (combis) {
     for (let ganar of combis) {
-        if (ganar[0] !== '' && ganar[0]===ganar[1] && ganar[0]===ganar[2]) {
-            return false;
+        if (ganar[0] != '' && ganar[0]==ganar[1] && ganar[1]==ganar[2]) {
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
 
