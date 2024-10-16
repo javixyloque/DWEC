@@ -20,7 +20,7 @@ let ganador = [
 ]
 
 let turno = 1;
-
+let simbolo = '';
 
 // alert ("Saludos, jugador, este es el TIC TAC TOE (version alpha para humanos)")
 
@@ -32,7 +32,7 @@ let turno = 1;
 while (compruebaTabla(ganador)) {
     let movimiento = parseInt(5);
     hacerMov(movimiento);
-    console.log(tablero)
+    console.log(tablero);
 }
 
 
@@ -47,7 +47,7 @@ while (compruebaTabla(ganador)) {
 
 function hacerMov (mov)  {
     
-    let simbolo = turno == 1 ? 'x' : 'o';
+    simbolo = turno == 1 ? 'x' : 'o';
 
         if (mov<=3&&tablero[0][mov-1]=='') {
             tablero[0][mov-1] = simbolo;
