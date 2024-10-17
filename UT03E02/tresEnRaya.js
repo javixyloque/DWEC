@@ -19,22 +19,32 @@ let casilla = undefined;
 
 //BUCLE PARA EJECUCION PROGRAMA
 
-while (true){
-    
-    movimiento = prompt(`Escribe el siguiente movimiento, jugador ${turno}`);
-    casilla = document.querySelector('.c'+movimiento);
-    actualizar(casilla);
-    pos = parseInt(movimiento);
-    
-    hacerMov(pos);
-    if (compruebaTabla(ganador)) {
-        alert(`FELICIDADES ${simbolo}, has ganado`)
-        break;
+    while (true){
+
         
-    }
-    console.log(tablero);
-    
-} 
+            movimiento = prompt(`Escribe el siguiente movimiento, jugador ${turno}`);
+            pos = parseInt(movimiento);
+            casilla = document.querySelector('.c'+movimiento);
+            if (hacerMov(pos)) {
+                
+                    actualizar(casilla);
+                    // FORZAR REFLUJO DEL DOM SISGUE SIN FUNCIONAR
+                    casilla.offsetHeight;
+                if (compruebaTabla(ganador)) {
+                    alert(`FELICIDADES ${simbolo}, has ganado`)
+                    break;
+                    
+                } 
+            } else {
+                continue;
+            };
+
+            turno = turno==1 ? 2 : 1;
+        
+    } 
+
+
+
 
 
 
@@ -61,23 +71,26 @@ function hacerMov (mov)  {
             tablero[2][mov-7] = simbolo;
         } else {
             alert('La posicion seleccionada no es valida o ya esta ocupada, pruebe otra vez');
-            turno = turno == 1 ? 1 : 2;
-            return tablero;
+            
+            return false;
         }        
-    
-    turno = turno==1 ? 2 : 1; 
-    return tablero;
+    return true;
 }
 
 
 function actualizar (casilla) {
-    if (turno===1) {
-        casilla.setAttribute("style", "background:red"); 
-    } else if (turno===2) {
-        casilla.setAttribute('style','background: green')
+
+    casilla.style.fontSize = 'large';
+    casilla.style.textAlign = 'center';
+    casilla.textContent = simbolo;
+    
+
+    if (turno === 1) {
+        casilla.style.backgroundColor = "red";
+    } else {
+        casilla.style.backgroundColor = "green";
     }
     
-    console.log(casilla);
 }
 
 
@@ -101,9 +114,24 @@ function compruebaTabla () {
 
     // BUCLE QUE RECORRE EL ARRAY DE LAS POSICIONES GANADORAS Y COMPARA
     for (let ganar of ganador) {
+        
         if (ganar[0] != '' && ganar[0]==ganar[1] && ganar[1]==ganar[2]) {
             return true;
+        } 
+        
+    }
+    let contadorEmpate = 0;
+    for (let fila of tablero) {
+        if (fila[0] !== '' && fila[1] !== '' && fila[2] !== '') {
+            contadorEmpate++;
+
         }
+        
+    }
+    console.log(contadorEmpate)
+    if (contadorEmpate===3) {
+        alert("Esto es un empate tecnico, vaya dos patas pa un banco");
+        location.reload();
     }
     return false;
 }
