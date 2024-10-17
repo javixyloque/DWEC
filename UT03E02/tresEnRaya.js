@@ -39,7 +39,7 @@ let casilla = undefined;
                 continue;
             };
 
-            turno = turno==1 ? 2 : 1;
+            turno = turno == 1 ? 2 : 1;
         
     } 
 
