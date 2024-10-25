@@ -38,7 +38,6 @@ function casillaOnClick (e) {
     if (comprobarCasillaValida(casilla)) {
         ejecutarTurno(casilla);
         comprobarFinJuego(casilla);
-        console.log(casilla.getAttribute("id"));
     } else {
 
     }
@@ -56,18 +55,25 @@ function ejecutarTurno (casilla) {
     casilla.textContent = FICHAS[ turnoActual  %  2  ] ;
     turnoActual++;
 }
-function comprobarHorizontal(casilla) {
+function comprobarTablero(numeroCasilla, casilla) {
+    // let contador = 0;
+    const letraAct = FICHAS[turnoActual%2];
+    // NECESITARIA HACER UN TABLERO APARTE PARA HACER ESTO :')
+    for (let ganar of combinacionesGanadoras) {
+        victoria = ganar.every((i) => FICHAS[turnoActual%2] == casilla.textContent && numeroCasilla==i);
+    }
+        
+    console.log(victoria);
 
-}
-function comprobarVertical (casilla) {
 
-}
-function comprobarDiagonalPrincipal (casilla) {
+    //     if (FICHAS[turno]) {
 
+    //     }
+    
+    return victoria;
 }
-function comprobarDiagonalSecundaria (casilla) {
 
-}
+
 
 function comprobarTablas (casilla) {
     if (turnoActual ==9&&!victoria) {
@@ -75,15 +81,15 @@ function comprobarTablas (casilla) {
     }
 }
 function comprobarFinJuego (casilla) {
-    const numeroCasilla = casilla.textContent;
-    comprobarHorizontal(numeroCasilla)
-    comprobarVertical(numeroCasilla);
-    if (DIAGONAL_SECUNDARIA.includes(numeroCasilla)) {
-        comprobarDiagonalPrincipal`numeroCasilla`;
-    }
-    if (DIAGONAL_SECUNDARIA.includes(numeroCasilla)) {
-        comprobarDiagonalSecundaria(numeroCasilla);
-    }
+    const numeroCasilla = casilla.id.split("-")[1];
+    comprobarTablero(numeroCasilla, casilla)
+    // comprobarVertical(numeroCasilla);
+    // if (DIAGONAL_SECUNDARIA.includes(numeroCasilla)) {
+    //     comprobarDiagonalPrincipal`numeroCasilla`;
+    // }
+    // if (DIAGONAL_SECUNDARIA.includes(numeroCasilla)) {
+    //     comprobarDiagonalSecundaria(numeroCasilla);
+    // }
 
     comprobarTablas(casilla);
 
