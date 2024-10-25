@@ -60,7 +60,8 @@ function comprobarTablero(numeroCasilla, casilla) {
     const letraAct = FICHAS[turnoActual%2];
     // NECESITARIA HACER UN TABLERO APARTE PARA HACER ESTO :')
     for (let ganar of combinacionesGanadoras) {
-        victoria = ganar.every((i) => FICHAS[turnoActual%2] == casilla.textContent && numeroCasilla==i);
+        victoria = ganar.every((i) => letraAct != casilla.textContent && numeroCasilla==i);
+        console.log(letraAct);
     }
         
     console.log(victoria);
