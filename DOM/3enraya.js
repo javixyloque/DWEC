@@ -1,18 +1,28 @@
 "use strict";
 
 let turnoActual = 0;
+let tablero = [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
+];
+const combinacionesGanadoras = [
+    // Pongo estos comentarios pq si no me vuelvo loco 
+         // HORIZONTALES
+        [tablero[0][0], tablero[0][1], tablero[0][2]],
+        [tablero[1][0], tablero[1][1], tablero[1][2]],
+        [tablero[2][0], tablero[2][1], tablero[2][2]],
+        //DIAGONALES
+        [tablero[0][0], tablero[1][1], tablero[2][2]],
+        [tablero[2][0], tablero[1][1], tablero[0][2]],
+        //VERTICALES
+        [tablero[0][0], tablero[1][0], tablero[2][0]],
+        [tablero[0][1], tablero[1][1], tablero[2][1]],
+        [tablero[0][2], tablero[1][2], tablero[2][2]]
+]
 const CASILLAS_VALIDAS = ["1","2","3","4","5","6","7","8","9"]
 const FICHAS = ["X","O"];
-const combinacionesGanadoras = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-    [1, 5, 9],
-    [3, 5, 7],
-    [1, 4, 7],
-    [2, 5, 8],
-    [3, 6, 9]
-]
+
 const FILA_IZQUIERDA = [1,4,7]
 const FILA_DERECHA = [3, 6, 9];
 const DIAGONAL_PRINCIPAL = [1, 5, 9];
@@ -51,51 +61,51 @@ function comprobarCasillaValida(casilla) {
 }
 
 function ejecutarTurno (casilla) {
-    const numeroCasilla = casilla.textContent; 
+    const numeroCasilla = casilla.id.split("-")[1];
+    if (numeroCasilla<=3&&tablero[0][numeroCasilla-1]=='') {
+        tablero[0][numeroCasilla-1] = FICHAS[turnoActual%2];
+    }else if (numeroCasilla <= 6 && tablero[1][numeroCasilla-4]=='') {
+        tablero[1][numeroCasilla-4] = FICHAS[turnoActual%2];
+    } else if (numeroCasilla >= 7 && tablero[2][numeroCasilla-7]=='')  {
+        tablero[2][numeroCasilla-7] = FICHAS[turnoActual%2];
+    }
     casilla.textContent = FICHAS[ turnoActual  %  2  ] ;
     turnoActual++;
 }
-function comprobarTablero(numeroCasilla, casilla) {
+function comprobarTablero(tablero) {
     // let contador = 0;
-    const letraAct = FICHAS[turnoActual%2];
+    
     // NECESITARIA HACER UN TABLERO APARTE PARA HACER ESTO :')
     for (let ganar of combinacionesGanadoras) {
-        victoria = ganar.every((i) => letraAct != casilla.textContent && numeroCasilla==i);
-        console.log(letraAct);
+        if (ganar[0]===ganar[1] && ganar[0] === ganar[2] && ganar[0] !== ''){
+            return true;
+        }
+        
     }
         
-    console.log(victoria);
 
 
-    //     if (FICHAS[turno]) {
 
-    //     }
     
-    return victoria;
+    
 }
 
 
 
-function comprobarTablas (casilla) {
-    if (turnoActual ==9&&!victoria) {
+function comprobarTablas () {
+    if (turnoActual == 9 && !victoria) {
         alert("Empate")
     }
 }
 function comprobarFinJuego (casilla) {
     const numeroCasilla = casilla.id.split("-")[1];
-    comprobarTablero(numeroCasilla, casilla)
-    // comprobarVertical(numeroCasilla);
-    // if (DIAGONAL_SECUNDARIA.includes(numeroCasilla)) {
-    //     comprobarDiagonalPrincipal`numeroCasilla`;
-    // }
-    // if (DIAGONAL_SECUNDARIA.includes(numeroCasilla)) {
-    //     comprobarDiagonalSecundaria(numeroCasilla);
-    // }
+    comprobarTablero(numeroCasilla, casilla, tablero)
+    
 
-    comprobarTablas(casilla);
-
-    if  (victoria) {
-        //EMPATE
+    comprobarTablas();
+    console.log(tablero)
+    if  (comprobarTablero(tablero)) {
+        // VICTORIA
         alert (`Gana el jugador ${FICHAS[ turnoActual  %  2  ]}`)
     }
     
