@@ -1,5 +1,11 @@
 "use strict";
 
+const titulo = document.createElement('h2');
+document.body.appendChild(titulo);
+
+document.body.setAttribute("style", "text-align: center; font-family: Verdana");
+titulo.innerHTML = "3 EN RAYA";
+
 let turnoActual = 0;
 let tablero = [
     ['', '', ''],
@@ -110,7 +116,9 @@ function comprobarFinJuego (casilla) {
     console.log(tablero)
     if  (comprobarTablero(tablero)) {
         // VICTORIA
-        alert (`Gana el jugador ${FICHAS[ (turnoActual  %  2) -1  ]}`)
+        turnoActual--;
+        alert (`Gana el jugador ${FICHAS[(turnoActual  %  2)]}`)
+        location.reload();
     }
     
 
