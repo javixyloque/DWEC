@@ -5,7 +5,7 @@ let empleados = [
 ]
 
 let sueldoAlto = empleados.reduce((acum, empleado)=> {
-    return empleado.sueldo > acum ? empleado: acum;
+    return empleado.sueldo > acum.sueldo ? empleado : acum;
 }, 0)
 
 let arrayOrd = empleados.sort((a, b) => {
