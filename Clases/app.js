@@ -119,7 +119,7 @@
 //     rellenarTabla(nuevoArr);
 // }
 
-"use strict";
+
 
 class Empleado {
     #nombre;
@@ -189,6 +189,7 @@ function crearEncabezados() {
 
     // Asociar eventos a los encabezados
     document.querySelector("#nombre").addEventListener("click", () => {
+        
         empleados.sort((a, b) => a.getNombre().localeCompare(b.getNombre()));
         actualizarFilas();
     });
