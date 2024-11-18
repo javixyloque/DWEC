@@ -143,6 +143,27 @@ class Empleado {
         </tr>`;
     }
 
+    render () {
+        let fila = document.createElement("tr");
+
+        let tdNombre = document.createElement("td");
+        let tdApellido = document.createElement("td");
+        let tdNacimiento = document.createElement("td");
+        let tdSueldo = document.createElement("td");
+        
+        tdNombre.textContent = this.#nombre;
+        tdApellido.textContent = this.#apellido;
+        tdNacimiento.textContent = this.#nacimiento;
+        tdSueldo.textContent = this.#sueldo;
+        
+        fila.appendChild(tdNombre);
+        fila.appendChild(tdApellido);
+        fila.appendChild(tdNacimiento);
+        fila.appendChild(tdSueldo);
+        
+        return fila;
+    }
+
     getNombre() {
         return this.#nombre;
     }
@@ -169,6 +190,19 @@ let empleados = [
 ];
 
 let tabla = document.getElementById("tabla-empleados");
+let boton =document.getElementById("formulario-enviar");
+boton.addEventListener("click", evento => {
+    // PREVENT DEFAULT ELIMINA EL EVENTO DE ENVIO DEL FORMULARIO
+    evento.preventDefault();
+    let nombre = document.getElementById("nombre_").value;
+    let apellido = document.getElementById("apellido_").value;
+    let nacimiento = document.getElementById("nacimiento_").value;
+    let sueldo = document.getElementById("sueldo_").value;
+    let empleado = new Empleado(nombre, apellido, nacimiento, sueldo);
+    console.log(nombre)
+    empleados.push(empleado);
+    actualizarFilas();
+});
 
 tabla.setAttribute("style", "border:solid 1px black; border-collapse: collapse; align-self:center;");
 tabla.setAttribute("align", "center");
@@ -213,9 +247,9 @@ function crearEncabezados() {
 function actualizarFilas() {
     const tbody = tabla.querySelector("tbody");
     tbody.innerHTML = "";
-
     empleados.forEach(empleado => {
-        tbody.innerHTML += empleado.toString();
+        
+        tbody.appendChild(empleado.render());
     });
 
     const filas = document.querySelectorAll("td");

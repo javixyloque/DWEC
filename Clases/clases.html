@@ -4,6 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: lightgray;
+        }
+        form {
+            margin-top: 10px;
+            display:grid;
+            grid-template-columns: 2fr 1fr;
+            width: 320px;
+        }
+        input[type="submit"] {
+            margin: 10px;
+            grid-column-start: 1;
+            grid-column-end: 3;
+            
+        }
+        #cuerpo-tabla {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        #tabla-empleados {
+            margin-bottom: 20px;
+        }
+        #tabla-empleados thead th {
+            cursor: pointer;
+        }
+        #tabla-empleados thead th:hover {
+            background-color: lightblue;
+        }
+        body {
+        background-color: aquamarine;   
+        }
+    </style>
 </head>
 <body>
     
@@ -17,5 +59,13 @@
         <tbody id="cuerpo-tabla"></tbody>
     </table>
     <script src="./app.js" defer></script>
+
+    <form action="">
+        <label for="nombre">Nombre</label><input type="text" name="nombre" id="nombre_">
+        <label for="apellido">Apellido</label><input type="text" name="apellido" id="apellido_">
+        <label for="nacimiento">Año de Nacimiento</label><input type="number" name="nacimiento" id="nacimiento_" placeholder="1999">
+        <label for="sueldo">Sueldo</label><input type="text" name="sueldo" id="sueldo_">
+        <input id="formulario-enviar" type="submit" value="Añadir">
+    </form>
 </body>
 </html>
