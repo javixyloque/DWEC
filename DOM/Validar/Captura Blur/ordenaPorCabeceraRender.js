@@ -98,19 +98,19 @@ function validarEmail(email) {
 
 
 function validarFecha(fecha) {
-    // Expresión regular para el formato DD/MM/YYYY
-    const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+    // EXPRESION REGULAR FECHA
+    const fechaReg = /^(\d{2})\/(\d{2})\/(\d{4})$/;
 
-    // Verificar si la fecha coincide con el formato
-    const match = fecha.match(regex);
+    // COINCIDE FECHA?
+    const match = fecha.match(fechaReg);
     if (!match) {
-        return false; // No cumple con el formato
+        return false; 
     }
 
-    // Extraer día, mes y año
-    const dia = parseInt(match[1], 10); // Primer grupo
-    const mes = parseInt(match[2], 10); // Segundo grupo
-    const anio = parseInt(match[3], 10); // Tercer grupo
+    
+    const dia = parseInt(match[1], 10);
+    const mes = parseInt(match[2], 10); 
+    const anio = parseInt(match[3], 10);
 
     // Validar rango del día y mes
     if (mes < 1 || mes > 12 || dia < 1 || dia > 31) {
