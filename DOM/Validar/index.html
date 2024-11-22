@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="get">
+        <label for="nombre">nombre</label>
+        <input type="text" name="nombre" id="nombre"><br>
+        <label for="apellidos">apellidos</label>
+        <input type="text" name="apellidos" id="apellidos"><br>
+        <label for="nacimiento">año nacimiento</label>
+        <input type="text" name="nacimiento" id="nacimiento" placeholder="1999"><br>
+        <label for="sueldo">sueldo</label>
+        <input type="text" name="sueldo" id="sueldo"><br><br>
+        <label for="dni">DNI</label>
+        <input type="text" name="dni" id="dni"><br><br>
+        <label for="email">email</label>
+        <input type="text" name="email" id="email"><br><br>
+
+        <button id="envia_formulario" type="button">Enviar consulta</button>
+    </form>
+    
+    
+    <table border="2px">
+        <thead>
+            <th onclick="ordenaNombre()"    style="cursor: pointer;">Nombre</th>
+            <th onclick="ordenaApellidos()" style="cursor: pointer;">Apellidos</th>
+            <th onclick="ordenaAnno()"      style="cursor: pointer;">Año nacimiento</th>
+            <th onclick="ordenaSueldo()"    style="cursor: pointer;">Sueldo</th>
+            <th onclick=""                  style="cursor: pointer;">DNI</th>
+            <th onclick=""                  style="cursor: pointer;">Email</th>
+        </thead>
+        <tbody id="lista-empleados">
+
+
+        </tbody>
+    </table>
+    <script src="ordenaPorCabeceraRender.js"></script>
+</body>
+</html>
