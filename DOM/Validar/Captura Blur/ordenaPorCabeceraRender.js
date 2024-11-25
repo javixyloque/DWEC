@@ -31,7 +31,7 @@ class Empleado {
     }
 }
 
-// Crear formulario dinámicamente
+// FORMULARIO
 const formulario = document.createElement("form");
 formulario.id = "form-empleados";
 formulario.innerHTML = `
@@ -55,9 +55,8 @@ formulario.innerHTML = `
 `;
 document.body.appendChild(formulario);
 
-// Crear tabla dinámicamente
+// TABLA
 const tabla = document.createElement("table");
-tabla.border = "2";
 tabla.innerHTML = `
     <thead>
         <tr>
