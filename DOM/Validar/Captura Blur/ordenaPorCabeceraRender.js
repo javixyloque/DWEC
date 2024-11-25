@@ -31,7 +31,7 @@ class Empleado {
     }
 }
 
-// FORMULARIO
+// Crear formulario dinámicamente
 const formulario = document.createElement("form");
 formulario.id = "form-empleados";
 formulario.innerHTML = `
@@ -52,11 +52,14 @@ formulario.innerHTML = `
 
     <label for="email">Email:</label>
     <input type="text" name="email" id="email" placeholder="correo@ejemplo.com"><br>
+
+    <button type="button" id="btn-enviar">Enviar</button>
 `;
 document.body.appendChild(formulario);
 
-// TABLA
+// Crear tabla dinámicamente
 const tabla = document.createElement("table");
+tabla.border = "2";
 tabla.innerHTML = `
     <thead>
         <tr>
@@ -108,10 +111,21 @@ campos.forEach(campo => {
             return;
         }
         this.style.border = "2px solid green";
-        if (campo === "email") {
-            agregarEmpleado();
-        }
     });
+});
+
+document.getElementById("btn-enviar").addEventListener("click", function () {
+    const camposInvalidos = campos.filter(campo => {
+        const input = document.getElementById(campo);
+        return input.style.border !== "2px solid green";
+    });
+
+    if (camposInvalidos.length > 0) {
+        alert("Por favor, revisa los campos en rojo antes de enviar.");
+        return;
+    }
+
+    agregarEmpleado();
 });
 
 function agregarEmpleado() {
@@ -122,6 +136,7 @@ function agregarEmpleado() {
     let empleado = new Empleado(nombre, apellidos, nacimiento, sueldo, dni, email);
     empleados.push(empleado);
     listaEmpleados.appendChild(empleado.render());
+    alert("Empleado agregado con éxito.");
 }
 
 function validarDNI(dni) {
