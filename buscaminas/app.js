@@ -1,24 +1,18 @@
 "use strict";
 
 let body = document.querySelector("body");
-body.setAttribute(
-  "style",
-  "background-color: #379c7d ; display: flex; flex-direction:column; align-items: center;"
-);
+body.setAttribute("style", "background-color: #379c7d ; display: flex; flex-direction:column; align-items: center;");
 let tabla = document.createElement("table");
 tabla.setAttribute("style", "border:1px solid; cellspacing: 0;margin: 5%;");
 let formulario = document.getElementById("formulario");
-formulario.setAttribute(
-  "style",
-  "display: flex; justify-content: center;flex-direction: column"
-);
+formulario.setAttribute("style","display: flex; justify-content: center;flex-direction: column");
 
 formulario.addEventListener("submit", comprobar);
 let contador = document.createElement("h2");
 body.appendChild(contador);
 
-let arrCeldas; // Matriz para celdas
-let numeroMinas = 0; // Total de minas
+let arrCeldas; 
+let numeroMinas = 0; 
 
 function comprobar(e) {
   e.preventDefault();
@@ -30,40 +24,41 @@ function comprobar(e) {
   }
 }
 
+/**
+ * @description Pinta la tabla de juego con las celdas y las minas, y las guarda en un array bidimensional.
+ * @param {number} numeroFilas 
+ */
 function pintar(numeroFilas) {
   tabla.innerHTML = "";
 
-  // Crear una matriz bidimensional para almacenar las celdas
-  arrCeldas = Array.from({ length: numeroFilas }, () =>
-    Array(numeroFilas).fill(null)
-  );
+  // CREAR ARRAY BIDIMENSIONAL CON CELDAS VACÍAS (ES NECESARIO CREARLO ANTES DE LOS BUCLES PARA AÑADIR LOS DATOS)
+  arrCeldas = new Array(numeroFilas).fill(null).map(() => new Array(numeroFilas).fill(null));
 
+  // BUCLE FILAS
   for (let i = 0; i < numeroFilas; i++) {
     let fila = document.createElement("tr");
+    // BUCLE COLUMNAS
     for (let j = 0; j < numeroFilas; j++) {
       let celda = document.createElement("td");
 
-      // Añadir mina aleatoria
-      if (Math.random() < 0.2) { // 20% probabilidad de mina
+      // MINAS ALEATORIAS (20%)
+      if (Math.random() < 0.2) {
         celda.classList.add("mina");
         numeroMinas++;
       }
 
-      celda.setAttribute(
-        "style",
-        "border: 1px solid; text-align: center; width: 50px; height: 50px; border-collapse: collapse"
-      );
+      celda.setAttribute("style","border: 1px solid; text-align: center; width: 50px; height: 50px; border-collapse: collapse");
 
       fila.appendChild(celda);
-      arrCeldas[i][j] = celda; // Guardar la celda en la matriz
+      arrCeldas[i][j] = celda; // GUARDA LA CELDA EN EL ARRAY DE CELDAS
     }
     tabla.appendChild(fila);
   }
 
-  // Calcular números adyacentes a minas
+  // CALCULAR NUMERO DE MINAS ALREDEDOR
   calcularNumeros();
 
-  // Añadir eventos a cada celda
+  // AÑADIR EVENTO A CADA CELDA. FLAT() PARA PODER RECORRER EL ARRAY EN UN SOLO BUCLE
   arrCeldas.flat().forEach((celda) => {
     celda.addEventListener("click", pisar);
     celda.addEventListener("contextmenu", marcar);
@@ -71,10 +66,15 @@ function pintar(numeroFilas) {
 
   formulario.appendChild(tabla);
 
-  // Actualizar marcador inicial
+  // ACTUALIZAR CONTADOR DE MINAS
   actualizarMarcador(numeroMinas, 0, contador);
 }
 
+
+/**
+ * @description Calcula el número de minas en una celda y lo guarda en el dataset de la etiqueta HTML
+ * 
+ */
 function calcularNumeros() {
   const direcciones = [
     [-1, -1], [-1, 0], [-1, 1],
@@ -102,7 +102,7 @@ function calcularNumeros() {
           }
         });
 
-        // Guardar el número de minas adyacentes como un atributo
+        // GUARDA EL NUMERO DE MINAS ADYACENTES EN EL DATASET DE LA PROPIA ETIQUETA HTML
         if (minasAdyacentes > 0) {
           arrCeldas[i][j].dataset.numero = minasAdyacentes;
         }
@@ -120,20 +120,20 @@ function pisar() {
     this.setAttribute("style", "background-color: beige");
     this.removeEventListener("click", pisar);
 
-    // Mostrar el número si tiene minas alrededor
+    // SI TIENE MINAS ALREDEDOR, MUESTRA EL NUMERO
     if (this.dataset.numero) {
       this.textContent = this.dataset.numero;
       this.style.fontWeight = "bold";
     }
 
-    // Si no hay minas alrededor, revela las celdas vecinas
+    // SI NO HAY MINAS ALREDEDOR, REVELA LAS CELDAS QUE RODEAN
     if (!this.dataset.numero) {
-      revelarAdyacentes(this);
+      revelarLados(this);
     }
   }
 }
 
-function revelarAdyacentes(celda) {
+function revelarLados(celda) {
   const direcciones = [
     [-1, -1], [-1, 0], [-1, 1],
     [0, -1],         [0, 1],
@@ -182,6 +182,15 @@ function marcar(e) {
     location.reload();
   }
 }
+
+
+
+/**
+ * 
+ * @param {*} minas 
+ * @param {*} celdasMarcadas 
+ * @param {*} contador 
+ */
 
 function actualizarMarcador(minas, celdasMarcadas, contador) {
   contador.textContent = "";
