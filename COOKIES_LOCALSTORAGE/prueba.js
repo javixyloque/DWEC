@@ -18,6 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     div.textContent = `Saludos, ${sesion}`;
 
     // div.textContent = sessionStorage.getItem("Sesión");
-})
+});
 
 
