@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem("persona", "Angelillo");
     let persona = localStorage.getItem("persona");
     console.log(persona);
-
-    sessionStorage.setItem("Sesión", "Juanolo");
+    sessionStorage.setItem("Sesión", "guajín");
     
     let sesion = sessionStorage.getItem("Sesión"); // METEMOS A "SESIÓN": "JUANOLO" EN UN OBJETO 
     console.log(sesion); // DEVUELVE JUANOLO
@@ -20,3 +19,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // div.textContent = sessionStorage.getItem("Sesión");
 })
+
+
