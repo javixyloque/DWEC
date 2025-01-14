@@ -4,15 +4,16 @@ window.addEventListener("DOMContentLoaded", async () => {
     document.body.style.margin = '0 5%';
     document.body.style.fontFamily = 'sans-serif';
 
-    // Obtener los artículos
+    // OBTENER ARTICULOS EN UN ARRAY
     const respuesta = await fetch("https://jsonplaceholder.typicode.com/posts/");
     const datosArticulo = await respuesta.json();
-    // Pintar el artículo
+
+    // PINTAR ARTICULOS
     pintarArticulo(datosArticulo);
 
     // Función para pintar los artículos
     async function pintarArticulo(datos) {
-       datos.forEach( async articulo => {
+        datos.forEach( async articulo => {
 
             const articuloDiv = document.createElement('div');
             document.body.appendChild(articuloDiv);
@@ -46,7 +47,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         })
     };
 
-    // Función para mostrar los comentarios
+    // MOSTRAR LOS COMENTARIOS
     async function mostrarComentarios(postId, comentariosDiv) {
         // Verificar si ya se han mostrado los comentarios
         const respuestaComentarios = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`);
@@ -62,7 +63,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         
     }
 
-    // Función para pintar los comentarios
+    // PINTAR LOS COMENTARIOS (SIN QUE SE VEAN)
     function pintarComentarios(datos, comentariosDiv) {
         datos.forEach(comentario => {
             const tituloComentario = document.createElement("h3");

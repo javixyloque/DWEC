@@ -1,7 +1,6 @@
 "use strict";
 
 document.addEventListener('DOMContentLoaded', () => {
-   
 
     localStorage.setItem("persona", "Angelillo");
     let persona = localStorage.getItem("persona");
