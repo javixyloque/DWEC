@@ -28,4 +28,4 @@ document.addEventListener("DOMContentLoaded", async () => {
         email.textContent = `Email: ${userData.email}`;
         document.body.appendChild(p);
     }
-});git
+});
