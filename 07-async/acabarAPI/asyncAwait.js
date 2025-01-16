@@ -26,13 +26,12 @@ window.addEventListener("DOMContentLoaded", async () => {
             articuloDiv.appendChild(bodyArticulo);
 
             // Obtener y mostrar el autor
-            const autorRespuesta = await fetch(
-                `https://jsonplaceholder.typicode.com/users/${articulo.userId}`
-            );
+            const autorRespuesta = await fetch(`https://jsonplaceholder.typicode.com/users/${articulo.userId}`);
             const autor = await autorRespuesta.json();
 
-            const printAutor = document.createElement("a");
-            printAutor.href = `user.html/${autor.id}`;
+            const printAutor = document.createElement("button");
+            printAutor.classList.add("printAutor");
+            // printAutor.href = `user.html/${autor.id}`;
             printAutor.textContent = autor.name;
             printAutor.target = "_blank"; 
             articuloDiv.appendChild(printAutor);
@@ -43,7 +42,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             boton.id = `boton-${articulo.id}`;
             articuloDiv.appendChild(boton);
 
-            // Contenedor para los comentarios
+            // CONTENEDOR COMENTARIOS
             const comentariosDiv = document.createElement("div");
             comentariosDiv.id = `comentarios-${articulo.id}`;
             comentariosDiv.style.display = "none"; // Ocultar inicialmente
@@ -53,6 +52,15 @@ window.addEventListener("DOMContentLoaded", async () => {
             boton.addEventListener("click", () =>
                 mostrarComentarios(articulo.id, comentariosDiv, boton)
             );
+
+            printAutor.addEventListener("click", async () => {
+                window.location.href = `./user.html?id=${articulo.userId}`;
+                
+                // const usuario = await fetch(`https://jsonplaceholder.typicode.com/users/${autor.id}`);
+                // const datosUsuario = await usuario.json();
+                // console.log(datosUsuario);
+            })
+
         });
     }
 
