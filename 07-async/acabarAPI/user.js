@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         // FETCH => TAREAS USUARIO
-        const fetchTareas = await fetch (`https://jsonplaceholder.typicode.com/users/${albums[0].id}/todos`);
+        const fetchTareas = await fetch (`https://jsonplaceholder.typicode.com/users/${datosUser.id}/todos`);
         const tareas = await fetchTareas.json();
         const tareasDiv = document.createElement('div');
         tareasDiv.textContent = "Tareas: ";
@@ -93,9 +93,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         // BUCLE => IMPRIMIR TAREAS
         tareas.forEach(elemento => {
             const tarea = document.createElement('p');
-            
-            // TERNARIO => IMPRIMIR TAREAS Y ESTADO
-            tarea.textContent = `${elemento.title} - ${elemento.completed? "Completada" : "Pendiente"}`;
+
+            //                   TITULO TAREA          TERNARIO => IMPRIMIR TAREAS Y ESTADO
+            tarea.textContent = `${elemento.title} - ${elemento.completed ? "Completada" : "Pendiente"}`;
             tareasDiv.appendChild(tarea);
 
 
