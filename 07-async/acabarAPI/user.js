@@ -100,6 +100,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
             tarea.style.border = "1px solid";
+            // TERNARIO => CAMBIAR COLOR TAREAS COMPLETADAS
+            elemento.completed ? tarea.style.backgroundColor = 'lightgreen' : tarea.style.backgroundColor = 'transparent';
         });
     }
 
