@@ -1,6 +1,7 @@
 "use strict";
+
 window.addEventListener("DOMContentLoaded", async () => {
-    // Configuración del estilo básico
+    // ESTILOS DEL BODY BÁSICOS
     document.body.style.margin = "0 5%";
     document.body.style.fontFamily = "sans-serif";
 
@@ -11,7 +12,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     // PINTAR ARTICULOS
     pintarArticulo(datosArticulo);
 
-    // Función para pintar los artículos
+    // FUNCION QUE PINTA ARTICULOS
     async function pintarArticulo(datos) {
         datos.forEach(async (articulo) => {
             const articuloDiv = document.createElement("div");
@@ -25,18 +26,20 @@ window.addEventListener("DOMContentLoaded", async () => {
             bodyArticulo.textContent = articulo.body;
             articuloDiv.appendChild(bodyArticulo);
 
-            // Obtener y mostrar el autor
+            // OBTENER AUTOR DEL POST
             const autorRespuesta = await fetch(`https://jsonplaceholder.typicode.com/users/${articulo.userId}`);
             const autor = await autorRespuesta.json();
 
-            const printAutor = document.createElement("button");
+
+            // ENLACE => ACCEDER A LA INFORMACIÓN DEL AUTOR
+            const printAutor = document.createElement("a");
             printAutor.classList.add("printAutor");
-            // printAutor.href = `user.html/${autor.id}`;
+            printAutor.href = `./user.html?id=${autor.id}`;
             printAutor.textContent = autor.name;
             printAutor.target = "_blank"; 
             articuloDiv.appendChild(printAutor);
 
-            // Botón para mostrar comentarios
+            // BOTÓN => MOSTRAR COMENTARIOS
             const boton = document.createElement("button");
             boton.textContent = "Mostrar Comentarios";
             boton.id = `boton-${articulo.id}`;
@@ -48,41 +51,35 @@ window.addEventListener("DOMContentLoaded", async () => {
             comentariosDiv.style.display = "none"; // Ocultar inicialmente
             articuloDiv.appendChild(comentariosDiv);
 
-            // Evento para el botón
+            // EVENTO BOTÓN
             boton.addEventListener("click", () =>
                 mostrarComentarios(articulo.id, comentariosDiv, boton)
             );
 
-            printAutor.addEventListener("click", async () => {
-                window.location.href = `./user.html?id=${articulo.userId}`;
-                
-                // const usuario = await fetch(`https://jsonplaceholder.typicode.com/users/${autor.id}`);
-                // const datosUsuario = await usuario.json();
-                // console.log(datosUsuario);
-            })
+            
 
         });
     }
 
-    // Función para mostrar/ocultar comentarios
+    // FUNCION => MOSTRAR / OCULTAR COMENTARIOS
     async function mostrarComentarios(postId, comentariosDiv, boton) {
         if (comentariosDiv.style.display === "none") {
             // Obtener y mostrar los comentarios
-            const respuestaComentarios = await fetch(
-                `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
-            );
+            const respuestaComentarios = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`);
             const datosComments = await respuestaComentarios.json();
+
+            // PINTAR COMENTARIOS EN EL DIV
             pintarComentarios(datosComments, comentariosDiv);
             comentariosDiv.style.display = "block";
             boton.textContent = "Ocultar Comentarios";
         } else {
-            // Ocultar los comentarios
+            // QUITAR DISPLAY COMENTARIOS
             comentariosDiv.style.display = "none";
             boton.textContent = "Mostrar Comentarios";
         }
     }
 
-    // Función para pintar los comentarios
+    // FUNCIÓN => PINTAR COMENTARIOS
     function pintarComentarios(datos, comentariosDiv) {
         comentariosDiv.innerHTML = ""; // Limpiar comentarios previos
         datos.forEach((comentario) => {
