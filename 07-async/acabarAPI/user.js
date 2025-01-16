@@ -2,10 +2,11 @@
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+    // DIRECCION => OBTENER ID DEL GET
     const idUser = new URLSearchParams(window.location.search);
     const id = parseInt(idUser.get("id"));
 
-    console.log(id);
     const user = await fetch(`https://jsonplaceholder.typicode.com/users/${parseInt(id)}`);
     const datosUser = await user.json();
     
@@ -16,12 +17,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // FUNCION => PINTA DATOS USUARIO
     function pintarUsuario (datosUser) {
-        // NOMBRE => PINTA DATOS USUARIO
+
+        // TITULO => NOMBRE USUARIO
         const h1 = document.createElement('h1');
         h1.textContent = datosUser.name;
         document.body.appendChild(h1);
         
-        // DIV =>  DIRECCIÑON
+        // DIV =>  DIRECCION
         const direccion = document.createElement('div');
         const parrafoDireccion = document.createElement('p');
         parrafoDireccion.innerHTML = `<strong>Ciudad</strong>: ${datosUser.address.city}<br><strong>Calle</strong>: ${datosUser.address.street}<br><strong>Vivienda</strong> ${datosUser.address.suite}<br><strong>Código postal</strong>: ${datosUser.address.zipcode}`;
@@ -77,7 +79,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         // FETCH => TAREAS USUARIO
-        const fetchTareas = await fetch (`https://jsonplaceholder.typicode.com/albums/${albums[0].id}/todos`);
+        const fetchTareas = await fetch (`https://jsonplaceholder.typicode.com/users/${albums[0].id}/todos`);
         const tareas = await fetchTareas.json();
         const tareasDiv = document.createElement('div');
         tareasDiv.textContent = "Tareas: ";
@@ -91,6 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // BUCLE => IMPRIMIR TAREAS
         tareas.forEach(elemento => {
             const tarea = document.createElement('p');
+            
             // TERNARIO => IMPRIMIR TAREAS Y ESTADO
             tarea.textContent = `${elemento.title} - ${elemento.completed? "Completada" : "Pendiente"}`;
             tareasDiv.appendChild(tarea);

@@ -51,7 +51,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             comentariosDiv.style.display = "none"; // Ocultar inicialmente
             articuloDiv.appendChild(comentariosDiv);
 
-            // EVENTO BOTÓN
+            // EVENTO BOTÓN 
             boton.addEventListener("click", () =>
                 mostrarComentarios(articulo.id, comentariosDiv, boton)
             );
