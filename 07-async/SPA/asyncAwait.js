@@ -9,9 +9,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     const respuesta = await fetch("https://jsonplaceholder.typicode.com/posts/");
     const datosArticulo = await respuesta.json();
 
-    //INVESTIGAR CREAR ARRAY DE OBJETOS AL PRINCIPIO PARA NO TENER QUE HACER FECTH TANTAS VECES
-
-
+    // ARRAY USUARIOS => CARGA SOLO UNA VEZ
+    const datosUsuarios = await fetch("https://jsonplaceholder.typicode.com/users");
+    const usuarios = await datosUsuarios.json();
+    console.log(usuarios)
 
     // PINTAR ARTICULOS
     pintarArticulo(datosArticulo);
@@ -32,8 +33,18 @@ window.addEventListener("DOMContentLoaded", async () => {
             articuloDiv.appendChild(bodyArticulo);
 
             // OBTENER AUTOR DEL POST
-            const autorRespuesta = await fetch(`https://jsonplaceholder.typicode.com/users/${articulo.userId}`);
-            const autor = await autorRespuesta.json();
+            // const autorRespuesta = await fetch(`https://jsonplaceholder.typicode.com/users/${articulo.userId}`);
+            // const autor = await autorRespuesta.json();
+            
+            
+            // VARIABLE AUTOR => PODER USARLA DESPUÉS
+            let autor;
+
+            usuarios.forEach((user) => {
+                if (user.id === articulo.userId) {
+                    autor = user;
+                }
+            });
 
 
             // ENLACE => ACCEDER A LA INFORMACIÓN DEL AUTOR
@@ -69,7 +80,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 mostrarComentarios(articulo.id, comentariosDiv, boton)
             );
             printAutor.addEventListener("click", () => {
-                pintarUsuario(articulo.userId);
+                pintarUsuario(autor);
             });
 
             
@@ -111,44 +122,45 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     // FUNCION => PINTA DATOS USUARIO 
     // LLAMA A pintarAlbumsTareas
-    async function pintarUsuario (idUsuario) {
+    async function pintarUsuario (usuario) {
         document.body.innerHTML = ""; // Limpiar coment
         
         // FETCH => GUARDAR DATOS USUARIO
-        const usuario = await fetch(`https://jsonplaceholder.typicode.com/users/${parseInt(idUsuario)}`);
-        const datosUser = await usuario.json();
-        console.log(datosUser);
+        // const usuario = await fetch(`https://jsonplaceholder.typicode.com/users/${parseInt(idUsuario)}`);
+        // const datosUser = await usuario.json();
+        // console.log(datosUser);
+
 
 
         // TITULO => NOMBRE USUARIO
         const h1 = document.createElement('h1');
-        h1.textContent = datosUser.name;
+        h1.textContent = usuario.name;
         document.body.appendChild(h1);
 
         // DIV =>  DIRECCION
         const direccion = document.createElement('div');
         const parrafoDireccion = document.createElement('p');
-        parrafoDireccion.innerHTML = `<strong>Ciudad</strong>: ${datosUser.address.city}<br><strong>Calle</strong>: ${datosUser.address.street}<br><strong>Vivienda</strong> ${datosUser.address.suite}<br><strong>Código postal</strong>: ${datosUser.address.zipcode}`;
+        parrafoDireccion.innerHTML = `<strong>Ciudad</strong>: ${usuario.address.city}<br><strong>Calle</strong>: ${usuario.address.street}<br><strong>Vivienda</strong> ${usuario.address.suite}<br><strong>Código postal</strong>: ${usuario.address.zipcode}`;
         document.body.appendChild(direccion);
         direccion.appendChild(parrafoDireccion);
 
 
         // PARRAFO => EMAIL
         const email = document.createElement('p');
-        email.textContent = `Email: ${datosUser.email}`;
+        email.textContent = `Email: ${usuario.email}`;
         document.body.appendChild(email);
 
 
         // PARRAFO => TELEFONO
         const telefono = document.createElement('p');
-        telefono.textContent = `Teléfono: ${datosUser.phone}`;
+        telefono.textContent = `Teléfono: ${usuario.phone}`;
         document.body.appendChild(telefono);
 
 
         // LINK => PAGINA WEB 
         const web = document.createElement('a');
-        web.href = `http://www.${datosUser.website}`;
-        web.textContent = datosUser.website;
+        web.href = `http://www.${usuario.website}`;
+        web.textContent = usuario.website;
         document.body.appendChild(web);
 
         // BOTON => VOLVER A LA PAGINA PRINCIPAL
@@ -164,7 +176,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         document.body.appendChild(volver);
 
         // LLAMADA FUNCIÓN QUE PINTA TAREAS Y ALBUMES
-        pintarAlbumsTareas(datosUser);
+        pintarAlbumsTareas(usuario);
     }
 
 
