@@ -8,7 +8,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     // OBTENER ARTICULOS EN UN ARRAY
     const respuesta = await fetch("https://jsonplaceholder.typicode.com/posts/");
     const datosArticulo = await respuesta.json();
-    
+
+    //INVESTIGAR CREAR ARRAY DE OBJETOS AL PRINCIPIO PARA NO TENER QUE HACER FECTH TANTAS VECES
+
+
+
     // PINTAR ARTICULOS
     pintarArticulo(datosArticulo);
 
@@ -151,10 +155,12 @@ window.addEventListener("DOMContentLoaded", async () => {
         const volver = document.createElement('button');
         volver.textContent = "Volver";
         volver.style.cursor = 'pointer';
+        
         volver.addEventListener('click', () => {
             document.body.innerHTML = "";
             pintarArticulo(datosArticulo);
         });
+        
         document.body.appendChild(volver);
 
         // LLAMADA FUNCIÓN QUE PINTA TAREAS Y ALBUMES
