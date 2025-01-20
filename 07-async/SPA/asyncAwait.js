@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     // OBTENER ARTICULOS EN UN ARRAY
     const respuesta = await fetch("https://jsonplaceholder.typicode.com/posts/");
     const datosArticulo = await respuesta.json();
-
+    
     // PINTAR ARTICULOS
     pintarArticulo(datosArticulo);
 
