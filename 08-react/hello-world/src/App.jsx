@@ -2,8 +2,11 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { Hola } from './Hola.jsx'
 
 function App() {
+  //DESESTRUCTURACIÓN DEL ARRAY (POSICION 0 ES COUNT Y POSICION 1 ES LA FUNCIÓN SETCOUNT)
+  //USESTATE(0) INDICA QUE EL VALOR INICIAL DE COUNT ES 0 (PUEDE SER CUALQUIER TIPO DE DATO VANILLA)
   const [count, setCount] = useState(0)
 
   return (
@@ -16,7 +19,11 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
+      
+      <Hola/>
+      
       <h1>Vite + React</h1>
+
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
