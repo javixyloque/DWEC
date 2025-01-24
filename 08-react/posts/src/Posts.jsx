@@ -34,7 +34,7 @@ function Posts() {
                             <h1>{post.title}</h1>
                             <p>{post.body}</p>
                             {/* SI EXISTE AUTOR => NOMBRE, SI NO => SIN AUTOR */}
-                            <p>Author: {author ? author.name : 'Sin autor'}</p> 
+                            <p>Autor: {author ? author.name : 'Sin autor'}</p> 
                         </div>
                     );
                 })}
