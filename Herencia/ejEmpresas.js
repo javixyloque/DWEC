@@ -47,6 +47,7 @@ function Empleado(nombre, apellido, edad, puesto){
     }
 }
 
+
 Empleado.prototype.toString = function(){
 
     return(`Empleado ${this.nombre} trabaja como ${this.puesto}`);
@@ -57,7 +58,5 @@ console.log(e1);
 e1.saludar();
 e1.trabajar();
 e1.toString();
- 
+
 let e2=new Empleado("Eloy","Garcia",25,"tester");
- 
- 

@@ -26,8 +26,14 @@ function Locomotora (marca, matricula, potencia, capacidadPasajeros) {
     Vehiculo.call(this, marca, matricula, potencia);
     this.capacidadPasajeros = capacidadPasajeros;
 }
+
+Locomotora.prototype.toString = function () {
+    return `Locomotora: ${this.marca} - Matrícula: ${this.matricula} - Potencia: ${this.potencia} - Capacidad: ${this.capacidadPasajeros}`;
+}
+
 let loc = new Locomotora("Volkswagen", "23456789", 200, 20);
 
+console.log(loc.toString());
 for (let k in loc)  {
     console.log(k);
 }

@@ -19,8 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
     for (let i = 0; i < localStorage.length; i++) {
+        // VARIABLE => KEY DEL LOCALSTORAGE (chat0, chat1, chat2)
         let key = localStorage.key(i);
         if (key.startsWith("chat")) {
+            // VARIABLE => MENSAJE DEL LOCALSTORAGE (MENSAJES)
         chat += localStorage.getItem(key);
         contador++;
         }
@@ -30,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         divprinc.textContent = "";
         let fecha = new Date();
         e.preventDefault();
+        // VARIABLE => RECOGER MENSAJE DEL INPUT
         let item = input.value;
         if (item === "") {
             alert("El mensaje no puede estar vacío");
@@ -39,7 +42,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (localStorage.getItem(`chat${contador}`)) {
             form.reset();
         }
-
+        
+        if (contador %2 ===0) {
+            
+        }
+        
         localStorage.setItem(`chat${contador}`, fecha.toLocaleString()+" : "+item+"<br>");
         chat += localStorage.getItem(`chat${contador}`);
         
