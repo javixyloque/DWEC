@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded",() => {
                 let columnaBorrar = document.createElement("td");
                 let botonEliminar = document.createElement("button");
                 let columnaConfirmar = document.createElement('td');
-                let botonConfirmar = document.createElement('button')
+                let botonConfirmar = document.createElement('button');
                 tareasTag.appendChild(fila);
                 fila.appendChild(columnaTarea);
                 fila.appendChild(columnaBorrar);

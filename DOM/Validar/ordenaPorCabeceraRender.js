@@ -269,7 +269,8 @@ function ordenaSueldo() {
             }
         )
         
-    }else{
+    } else {
+        
         empleados.reverse();
 
         tabla.innerHTML = "";
