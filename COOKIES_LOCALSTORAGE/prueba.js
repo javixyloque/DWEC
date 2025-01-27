@@ -19,4 +19,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // div.textContent = sessionStorage.getItem("Sesión");
 });
 
+// EXPRESION REGULAR
+
+const REGEXP = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+
+//^ - PRINCIPIO DEL STRING
+//(?=.*[a-z]) - MINIMO UNA MINUSCULA
+//(?=.*[A-Z]) - MINIMO UNA MAYUSCULA
+//(?=.*\d) - MINIMO UN DIGITO (NUMERO)
+//[a-zA-Z\d]{6,} - AL MENOS 6 CARACTERES (LETRAS Y NUMEROS) 
+// $ - CONCLUSION DEL STRING
+
+// console.log(REGEXP.test('Abc123')); // true
+// console.log(REGEXP.test('Abc123!')); // false
+// console.log(REGEXP.test('ABC123!')); // false
+// console.log(REGEXP.test('abc123!')); // false
+// console.log(REGEXP.test('abc123')); // false
+
 
