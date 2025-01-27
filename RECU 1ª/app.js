@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded",() => {
         
         
         fila.textContent = tarea;
-        botonEliminar.textContent = "Eliminar";
+        botonEliminar.textContent = "Borrar tarea";
         botonConfirmar.textContent = "Confirmar";
         fila.appendChild (botonConfirmar);
         fila.appendChild (botonEliminar);
