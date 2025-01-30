@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import './Comentarios.jsx';
 
 function Posts() {
     // STATE PARA GUARDAR LOS POSTS Y LOS USUARIOS 
@@ -15,11 +16,10 @@ function Posts() {
 
             
             setPosts(postList);
-            setLoading(false);
         }
         fetchAll();
         // DEPENDENCIA POSTS => CADA VEZ QUE CAMBIA SE LLAMA A ESTA FUNCIÓN 
-    }, [posts]); 
+    },); 
 
     useEffect(() => {
         // SI CAMBIA LA CANTIDAD DE POSTS, LIMPIAR EL STATE DE ALBUMS
@@ -38,7 +38,6 @@ function Posts() {
             const autores = await Promise.all(resUser);
             // const nombresAutores = autores.map(autor =>autor.name)
             setUsers(autores);
-            setLoading(false);
         }
         fetchUserNames();
     }, []);
@@ -59,10 +58,13 @@ function Posts() {
                             <p>{post.body}</p>
                             {/* SI EXISTE AUTOR => NOMBRE, SI NO => SIN AUTOR */}
                             <p>Autor: {author ? author.name : 'Sin autor'}</p> 
+                            <Comentarios postId={post.id}/>
                         </div>
+                        
                     );
                 })}
             </div>
+
         </>
     );
 }
