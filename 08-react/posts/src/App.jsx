@@ -1,4 +1,4 @@
-import { useState } from 'react'
+
 import './App.css'
 import {Posts} from './components/Posts.jsx'
 import { Autor } from './components/Autor.jsx'
