@@ -18,6 +18,7 @@ function Autor () {
             
             const autorFetch = await fetch(`https://jsonplaceholder.typicode.com/users?id=${id}`);
             const datosAutor = await autorFetch.json();
+            // DATOSAUTOR => ARRAY DE PROMESAS, COMO SOLO HAY 1 REGISTRO, ES LA POSICIÓN 0 DEL ARRAY
             setAutor(datosAutor[0]);
             
             setLoading(false);

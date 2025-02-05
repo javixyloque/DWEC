@@ -39,8 +39,8 @@ function Posts() {
             });
             const autores = await Promise.all(resUser);
             // const nombresAutores = autores.map(autor =>autor.name)
-            setUsers(autores);
-            setLoading(false); // DESPUES DE OBTENER LOS USUARIOS, CARGANDO ES false
+            setUsers(autores); 
+            setLoading(false);// DESPUES DE OBTENER LOS USUARIOS, CARGANDO ES false
         }
         fetchUserNames();
     }, [posts]);
