@@ -1,14 +1,18 @@
 import { useState } from 'react'
 import './App.css'
-import {Posts} from './Posts.jsx'
+import {Posts} from './components/Posts.jsx'
+import { Autor } from './components/Autor.jsx'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
-  const [posts, actualizarPost] = useState([]);
 
   return (
-    <>
-      <Posts/>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Posts/>} />
+        <Route path="autor/:id" element={<Autor/>}></Route>
+      </Routes>
+    </Router>
   )
 }
 

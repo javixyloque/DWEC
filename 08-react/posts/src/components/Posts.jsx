@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import './Comentarios.jsx';
+import '../Comentarios.jsx';
+import { Link } from 'react-router-dom';
+import { Spinner } from 'react-spinner-toolkit';
 
 function Posts() {
     // STATE PARA GUARDAR LOS POSTS Y LOS USUARIOS 
@@ -16,13 +18,13 @@ function Posts() {
 
             
             setPosts(postList);
+            setLoading(false); // DESPUES DE OBTENER LOS POSTS, CARGANDO ES FALSE
         }
         fetchAll();
         // DEPENDENCIA POSTS => CADA VEZ QUE CAMBIA SE LLAMA A ESTA FUNCIÓN 
     },); 
 
     useEffect(() => {
-        // SI CAMBIA LA CANTIDAD DE POSTS, LIMPIAR EL STATE DE ALBUMS
         async function fetchUserNames() {
             
             let uniqueUserIds = [...new Set(posts.map ( post => post.userId ))];
@@ -38,9 +40,17 @@ function Posts() {
             const autores = await Promise.all(resUser);
             // const nombresAutores = autores.map(autor =>autor.name)
             setUsers(autores);
+            setLoading(false); // DESPUES DE OBTENER LOS USUARIOS, CARGANDO ES false
         }
         fetchUserNames();
-    }, []);
+    }, [posts]);
+
+    if (loading) {
+        // CARGANDO...
+        // Aquí se puede poner un spinner o algo similar
+        // Por ejemplo, un <div> con un spinner </div>
+        return <Spinner shape="threeDots" color="white" loading speed={1} size={50} transition={true} />
+    } 
 
     return (
         //NO HACE FALTA PERO PARA TENER UN ELEMENTO RAIZ
@@ -50,15 +60,17 @@ function Posts() {
                 
                 posts.map(post => {
                     // FIND => DEVUELVE EL USUARIO CON EL ID = POST.USERID
-                    const author = users.find(user => /*return implicito*/ user.id === post.userId ); 
-
+                    const author = users.find(user => /*return implicito*/ user.id === post.userId );
+                    
+                    
                     return (
                         <div className="post" key={post.id}>
+                            
                             <h1>{post.title}</h1>
                             <p>{post.body}</p>
                             {/* SI EXISTE AUTOR => NOMBRE, SI NO => SIN AUTOR */}
-                            <p>Autor: {author ? author.name : 'Sin autor'}</p> 
-                            <Comentarios postId={post.id}/>
+                            <p>Autor: <Link to={author ? `/autor/${author.id}`:"#"}>{author ? author.name : 'Sin autor'}</Link></p> 
+                            {/* <Comentarios postId={post.id}/> */}
                         </div>
                         
                     );
