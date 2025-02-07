@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {Comentarios} from '../Comentarios.jsx';
+import {Comentarios} from './Comentarios.jsx';
 import { Link } from 'react-router-dom';
 import { Spinner } from 'react-spinner-toolkit';
 
