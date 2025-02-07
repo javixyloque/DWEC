@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import '../Comentarios.jsx';
+import {Comentarios} from '../Comentarios.jsx';
 import { Link } from 'react-router-dom';
 import { Spinner } from 'react-spinner-toolkit';
 
@@ -70,7 +70,7 @@ function Posts() {
                             <p>{post.body}</p>
                             {/* SI EXISTE AUTOR => NOMBRE, SI NO => SIN AUTOR */}
                             <p>Autor: <Link to={author ? `/autor/${author.id}`:"#"}>{author ? author.name : 'Sin autor'}</Link></p> 
-                            {/* <Comentarios postId={post.id}/> */}
+                            {<Comentarios postId={post.id}/> }
                         </div>
                         
                     );
