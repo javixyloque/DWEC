@@ -55,7 +55,7 @@ function Posts() {
     return (
         //NO HACE FALTA PERO PARA TENER UN ELEMENTO RAIZ
         <>
-            <div className="post-list">
+            <div className="post-list" style={{display:"block", marginLeft:15}}>
                 {
                 
                 posts.map(post => {
@@ -64,7 +64,7 @@ function Posts() {
                     
                     
                     return (
-                        <div className="post" key={post.id}>
+                        <div className="post" key={post.id} style={{ marginBottom:10}}>
                             
                             <h1>{post.title}</h1>
                             <p>{post.body}</p>
@@ -76,8 +76,11 @@ function Posts() {
                     );
                 })}
             </div>
-
+            if (condition) {
+                
+            }
         </>
+        
     );
 }
 
