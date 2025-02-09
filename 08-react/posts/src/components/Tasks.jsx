@@ -3,6 +3,7 @@
 import { Spinner } from "react-spinner-toolkit";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Hola } from "./scripts/tasks";
 
 
 function Tasks () {
@@ -11,9 +12,6 @@ function Tasks () {
     const [loading, setLoading] = useState(true);
     const [autor, setAutor] = useState([]);
 
-    // if (loading) {
-    //     return <Spinner shape="threeDots" color="white" loading speed={1} size={50} transition={true} />
-    // }
 
     useEffect(() => {
         async function fetchTasks() {
@@ -35,21 +33,37 @@ function Tasks () {
         fetchUser();
     }, [])
 
+    if (loading) {
+        return <Spinner shape="threeDots" color="white" loading speed={1} size={50} transition={true} />;
+    }
+
     return (
         <div>
             <h1>Tareas de {autor.name}</h1>
-            <ul>
-                {// BUCLE IMPRIMIR TAREAS
+            <ul style={{display: "flex", flexDirection: "column", justifyItems:"left"}}>
+                    <h2>Tareas Completadas</h2>
+                <div id="completadas">
+                    {// BUCLE IMPRIMIR TAREAS
                     tasks.map(task => {
                         if (task.completed) {
-                            return <button></button>
-                            return <li style={{background: ""}} key={task.id}>{task.title}</li>;
-                        } else {
-                            return <li style={{background: "red"}} key={task.id}>{task.title}</li>;
+                            return <li style={{background: "#004930", listStyle: "none", textAlign: "start", borderRadius: "5px", marginBottom: "0.5em", padding: "2%"}} key={task.id}>{task.title} - COMPLETA</li>;
                         }
                     })
                 }
+                </div>
+                <div id="incompletas">
+                    <h2>Tareas Incompletas</h2>
+
+                    {// BUCLE IMPRIMIR TAREAS
+                    tasks.map(task => {
+                        if (!task.completed) {
+                            return <li style={{background: "#330b00", listStyle: "none", textAlign: "start", borderRadius: "5px", marginBottom: "0.5em", padding: "2%",}} key={task.id}>{task.title} - INCOMPLETA</li>;
+                        }
+                    })
+                    }   
+                </div>
             </ul>
+            <Hola/>
         </div>
     );
  
