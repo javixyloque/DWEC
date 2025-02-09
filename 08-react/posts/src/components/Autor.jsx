@@ -43,7 +43,9 @@ function Autor () {
             <h1>{autor.name}</h1>
             <p>Nombre de usuario: {autor.username}</p>
             <p>Email: {autor.email}</p>
-            
+            <p>Teléfono: {autor.phone}</p>
+
+            <Link to={`/autor/tasks/${autor.id}`} ><h3>Tareas</h3></Link>
         
         
             <p>Web: <Link to={`http://${autor? autor.website: ''}`}>{autor? autor.website: ''}</Link></p>

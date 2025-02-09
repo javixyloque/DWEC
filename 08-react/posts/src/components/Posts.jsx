@@ -76,9 +76,7 @@ function Posts() {
                     );
                 })}
             </div>
-            if (condition) {
-                
-            }
+            
         </>
         
     );
