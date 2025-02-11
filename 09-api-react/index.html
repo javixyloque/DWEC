@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div class="form">
+      <form id="form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="value">Value:</label>
+        <input type="text" id="value" name="value" required>
+
+        <button type="submit" id="add-button">Enviar</button>
+      </form>
+    </div>
+
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        
+      </tbody>
+    </table>
+    <!-- <script type="module" src="/src/main.jsx"></script> -->
+    <script type="module" src="api.js"></script>
+    <!-- <script type="module" src="app.js"></script> -->
+  </body>
+</html>
