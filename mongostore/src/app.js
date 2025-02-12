@@ -83,29 +83,24 @@ async function initialize() {
 
             // Generate JWT token and pass it to the client
             const token = jwt.sign({ username }, JWT_SECRET_KEY, { expiresIn: "24h" });
-            return res.json({ token });
+            return res.json({ token, userId: user._id });
         });
 
         // Authentication middleware with JWT
-        const authenticateToken = async (req, res, next) => {
-            if (!req.headers['authorization']) {
-                return res.status(401).send('No Token Provided!');
-            }
-
-            if (!req.headers['authorization'].startsWith('Bearer ')) {
-                return res.status(401).send('Invalid Token Format!');
-            }
-
-            const token = req.headers['authorization'].split(' ')[1];
-
-            try {
-                const user = jwt.verify(token, JWT_SECRET_KEY);
+        function authenticateToken(req, res, next) {
+            const authHeader = req.headers['authorization'];
+            const token = authHeader && authHeader.split(' ')[1];
+        
+            if (!token) return res.sendStatus(401);
+        
+            jwt.verify(token, JWT_SECRET_KEY, (err, user) => {
+                if (err) return res.sendStatus(403);
+                console.log("Usuario autenticado:", user);  // <-- Verifica qué tiene `user`
                 req.user = user;
                 next();
-            } catch (err) {
-                res.status(400).send('Invalid Token');
-            }
+            });
         }
+        
 
         app.get('/object', authenticateToken, async (req, res) => {
             const owner = req.user.username;
@@ -116,6 +111,68 @@ async function initialize() {
             }
             return res.json(dbObjects);
         });
+        
+        
+        
+        app.post('/object', authenticateToken, async (req, res) => {
+            try {
+                const ownerUser = await User.findOne({ name: req.user.username });
+                if (!ownerUser) {
+                    return res.status(404).json({ error: "Usuario no encontrado." });
+                }
+        
+                const obj = new DBObject({ 
+                    name: req.body.name, 
+                    value: req.body.value, 
+                    owner: ownerUser._id // Asigna el usuario autenticado como propietario
+                });
+        
+                await obj.save();
+                res.json(obj);
+            } catch (error) {
+                res.status(500).json({ error: "Error al guardar el objeto." });
+            }
+        });
+
+        app.put("/object/:id", authenticateToken, async (req, res) => {
+            try {
+                const { id } = req.params;
+                const { name, value } = req.body;
+        
+                const updatedObject = await DBObject.findByIdAndUpdate(
+                    id,
+                    { name, value },
+                    { new: true } // Retorna el objeto actualizado
+                );
+        
+                if (!updatedObject) {
+                    return res.status(404).json({ message: "Objeto no encontrado" });
+                }
+        
+                res.json(updatedObject);
+            } catch (err) {
+                res.status(500).json({ error: err.message });
+            }
+        });
+        
+
+        app.delete("/object/:id", authenticateToken, async (req, res) => {
+            try {
+                const { id } = req.params;
+                const deletedObject = await DBObject.findByIdAndDelete(id);
+        
+                if (!deletedObject) {
+                    return res.status(404).json({ message: "Objeto no encontrado" });
+                }
+        
+                res.json({ message: "Objeto eliminado", id });
+            } catch (err) {
+                res.status(500).json({ error: err.message });
+            }
+        });
+        
+        
+        
 
         // Other routes...
 
