@@ -2,6 +2,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
+import cors from 'cors';
+
+app.use(cors({
+    origin: 'http://localhost:5173', // Permite solicitudes desde tu frontend
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Constants
 const JWT_SECRET_KEY = 'values of beta will give rise to dom!';
@@ -47,6 +54,16 @@ async function initialize() {
         });
 
         const DBObject = mongoose.model('Object', dbObjectSchema);
+
+
+        const tareas = new moongoose.Schema({
+            name: String,
+            value: String,
+            owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+            completed: Boolean,
+        });
+
+        const Tarea = mongoose.model('Tarea', tareas);
 
         // Make sure there is an admin user
         const user = await User.findOne({ name: 'admin' });
@@ -110,6 +127,39 @@ async function initialize() {
                 return res.status(404).send('Object not found.');
             }
             return res.json(dbObjects);
+        });
+
+        app.get('/tasks', authenticateToken, async (req, res) => {
+            const owner = req.user.username;
+            const ownerUser = await User.findOne({ name: owner });
+            const tareas = await Tarea.find({ owner: ownerUser._id });
+            if (!tareas) {
+                return res.status(404).send('Object not found.');
+            }
+            return res.json(tareas);
+        });
+
+
+
+        app.post('/tasks', authenticateToken, async (req, res) => {
+            try {
+                const ownerUser = await User.findOne({ name: req.user.username });
+                if (!ownerUser) {
+                    return res.status(404).json({ error: "Usuario no encontrado." });
+                }
+        
+                const obj = new DBObject({ 
+                    name: req.body.name, 
+                    value: req.body.value, 
+                    owner: ownerUser._id ,
+                    completed: false// Asigna el usuario autenticado como propietario
+                });
+        
+                await obj.save();
+                res.json(obj);
+            } catch (error) {
+                res.status(500).json({ error: "Error al guardar el objeto." });
+            }
         });
         
         
